@@ -1,0 +1,26 @@
+version: '3'
+services:
+  # MySQL Service
+  api_db:
+    image: mysql:5.7
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3311:3306"
+    environment:
+      MYSQL_DATABASE: api
+      MYSQL_ROOT_PASSWORD: api
+    volumes:
+      - api:/var/lib/mysql/
+      #- ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - api-network
+
+#Docker Networks
+networks:
+  api-network:
+    driver: bridge
+# #Volumes
+volumes:
+  api:
+    driver: local
